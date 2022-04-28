@@ -1,0 +1,47 @@
+<h1 mat-dialog-title>{{title}}</h1>
+<div class="container-fluid">
+<div class="card mb-2">
+  <div class="card-body">
+    <div class="row">
+      <div class="col"><span class="text-muted">Kod: </span> {{produkt.code}}</div>
+      <div class="col"><span class="text-muted">Nazwa: </span> {{produkt.name}}</div>
+    </div>
+  </div>
+</div>
+<form [formGroup]="prductForm">
+  <div class="row">
+
+  <div class="col">
+    <mat-form-field>
+      <input matInput type="number" placeholder="ilość" 
+      formControlName="quantity">
+    </mat-form-field>
+  </div>
+
+<div class="col">
+  <mat-form-field>
+  <mat-select placeholder="Status" formControlName="status">
+    <mat-option *ngFor="let status of statusProduct" [value]="status.value">
+      {{status.name}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+</div>
+
+<div class="col">
+  <mat-form-field>
+    <input matInput type="number" placeholder="Sort" 
+    formControlName="sort">
+  </mat-form-field>
+</div>
+
+</div>
+<div mat-dialog-actions class="d-flex justify-content-end">
+  <button mat-button mat-raised-button color="primary" (click)="dodajProdukt()">Dodaj</button>
+  <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Anuluj</button>
+</div>
+
+</form>
+
+
+

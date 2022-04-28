@@ -1,0 +1,108 @@
+<h3>{{title}}</h3>
+<form [formGroup]="orderElemForm">
+  <div class="card mb-2">
+    <div class="card-body">
+      <h5 class="card-title">Dane:</h5>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col">
+            <mat-form-field>
+              <input matInput placeholder="Kod" formControlName="code">
+            </mat-form-field>
+          </div>
+
+            <mat-form-field class="col-9">
+              <input matInput placeholder="Nazwa" formControlName="name">
+            </mat-form-field>
+
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field>
+              <mat-select
+              formControlName="jm"
+              placeholder="jedMas" >
+                <mat-option value="szt.">szt.</mat-option>
+                <mat-option value="op.">op.</mat-option>
+                <mat-option value="kpl.">kpl.</mat-option>
+                <mat-option value="szt.">m</mat-option>
+                <mat-option value="m2">m2</mat-option>
+                <mat-option value="kg.">kg.</mat-option>
+                <mat-option value="g.">g.</mat-option>
+                <mat-option value="l.">l.</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field>
+              <mat-label>Typ towaru</mat-label>
+              <mat-select placeholder="Typ Towaru" formControlName="type">
+                <mat-option value="1">Towar</mat-option>
+                <mat-option value="2">Produkt</mat-option>
+                <mat-option value="3">Usługa</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field>
+              <input matInput placeholder="Vat" 
+              type="number"  formControlName="vat">
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field>
+              <input matInput placeholder="Lp" 
+              type="number"  formControlName="lp">
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field>
+              <input matInput placeholder="Sort" 
+              type="number"  formControlName="sort">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field>
+              <input matInput placeholder="Ilość" 
+              type="number"  formControlName="quantity">
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field>
+              <input matInput placeholder="Cena zakupu" 
+              type="number" formControlName="pricePurchase">
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field>
+              <input matInput placeholder="Cena cennik" 
+              type="number" formControlName="price">
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field>
+              <input matInput placeholder="Cena po rabacie" 
+              type="number" formControlName="priceAfterDiscount">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+         
+            <div class="col">
+              <ckeditor [editor]="editor" 
+              formControlName="description">
+            </ckeditor>
+            </div>
+         
+        </div>
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions class="d-flex justify-content-end">
+    <button mat-button mat-raised-button color="primary" [disabled]="!orderElemForm.valid"
+      (click)="addPoz()">Dodaj</button>
+    <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Anuluj</button>
+  </div>
+</form>

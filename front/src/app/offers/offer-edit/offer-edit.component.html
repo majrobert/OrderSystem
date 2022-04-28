@@ -1,0 +1,223 @@
+<div class="container-fluid">
+  <div class="row mb-1">
+    <div class="col">
+      <h4>Edycja Oferty</h4>
+    </div>
+    <div class="col">
+      
+    </div>
+  </div>
+  <!--tytół-->
+  <offer-header  [offerId]="orderId"></offer-header>
+  <div class="card" *ngIf="listOrderView">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-4 small">
+        </div>
+        <div class="col-3">
+        </div>
+        <div class="col-1 text-right small">
+          <span>Zakup</span>
+        </div>
+        <div class="col-1 text-right small">
+          <span>Cena</span>
+        </div>
+        <div class="col-1 text-right small">
+          <span>Wartość</span>
+        </div>
+        <div class="col-1 text-right small">
+          <span>Wart. po rabacie</span>
+        </div>
+        <div class="col-1 text-right small">
+          <span>Wart. brutto</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          <button (click)="addHeader()" mat-raised-button matTooltip="dodaj nowy nagłówek" color="primary"
+            type="button">
+            <i class="fa fa-plus mr-1"> </i> dodaj nagłówek
+          </button>
+        </div>
+        <div class="col-3 d-flex justify-content-start">
+          <mat-form-field class="example-full-width" class="mr-2">
+            <mat-label>procent upustu</mat-label>
+            <input matInput type="number" min="0" placeholder="upust" [(ngModel)]="discount">
+          </mat-form-field>
+          <div class="mt-3">
+            <button mat-raised-button (click)="refreshDiscount()">Uaktualnij</button>
+          </div>
+
+        </div>
+        <div class="col-1 text-right font-weight-bold">
+          <span matTooltip="wartość zakupu">{{sums?.sumZakup |  number : '1.2-2'}}</span>
+        </div>
+        <div class="col-1 text-right font-weight-bold">
+          
+        </div>
+        <div class="col-1 text-right font-weight-bold">
+          <span matTooltip="wartość">{{sums?.sumWart |  number : '1.2-2'}}</span>
+        </div>
+        <div class="col-1 text-right font-weight-bold">
+          <span matTooltip="wartość po rabacie">{{sums?.sumDiscount |  number : '1.2-2'}}</span>
+        </div>
+        <div class="col-1 text-right font-weight-bold">
+          <span matTooltip="wartość brutto">{{sums?.sumBrutto |  number : '1.2-2'}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col" *ngIf="listOrderView">
+      <ng-container *ngFor="let header of orderHeader">
+        <div class="w-100 row justity-content-between border-bottom ">
+          <div class="col-5 d-flex justify-content-between">
+            <a class="text-dark d-flex justify-content-between" (click)="header.collapse = ! header.collapse">
+              <button type="button" (click)="editOffer(element)" mat-icon-button color="primary" matTooltip="produkt">
+                <mat-icon *ngIf="!header.collapse">expand_more</mat-icon>
+                <mat-icon *ngIf="header.collapse">expand_less</mat-icon>
+              </button>
+              <h5 class="mb-0 mt-2">{{header.name}} 
+                <span class="text-muted">({{header.orderElem.length}})</span>
+              </h5>
+            </a>
+            <div class="div">
+              <button type="button" (click)="editheader(header)" mat-icon-button color="primary"
+              matTooltip="edycja nazwy">
+              <mat-icon>create</mat-icon>
+            </button>
+              <button mat-icon-button color="warn" type="button" (click)="deleteHeader(header)"
+                matTooltip="Kasowanie nagłówka">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+          <div class="col">
+            <button type="button" (click)="addOrderElem(header)" mat-mini-fab color="primary" matTooltip="produkt">
+              <mat-icon>add</mat-icon>
+            </button>&nbsp;
+            <button mat-icon-button color="primary" type="button" (click)="addOrderElemConfig(header)"
+              matTooltip="produkt nietypowy">
+              <mat-icon>vertical_split</mat-icon>
+            </button>
+            <button mat-icon-button color="primary" type="button" (click)="addOrderElemHand(header)"
+              matTooltip="produkt dopisany">
+              <mat-icon>touch_app</mat-icon>
+            </button>
+          </div>
+          <div class="col-1 text-right font-weight-bold p-0">
+            <span  matTooltip="wartość zakupu" > 
+              {{sumaZakupu(header.orderElem) |  number : '1.2-2'}}</span >
+          </div>
+          <div class="col-1 text-right font-weight-bold p-0">
+
+          </div>
+          <div class="col-1 text-right font-weight-bold p-0">
+            <span  matTooltip="wartość" > 
+              {{sumWartosct(header.orderElem) |  number : '1.2-2'}}</span >
+          </div>
+          <div class="col-1 text-right font-weight-bold p-0">
+            <span  matTooltip="wartość po rabacie" > 
+              {{sumDiscount(header.orderElem) |  number : '1.2-2'}}</span >
+          </div>
+          <div class="col-1 text-right font-weight-bold p-0">
+            <span  matTooltip="wartość brutto" > 
+              {{sumBrutto(header.orderElem) |  number : '1.2-2'}}</span >
+          </div>
+        </div>
+        <div class="collapse show" id="header.collapse" [ngbCollapse]="header.collapse">
+          <div class="card mb-0 shadow-none">
+            <div class="card-body">
+              <ng-template [ngTemplateOutlet]="element" [ngTemplateOutletContext]="{elem:elem, i:i}"
+                *ngFor="let elem of header.orderElem; let i = index;"></ng-template>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <!--body of order-->
+    <div class="col" *ngIf="listOrderElemView">
+      <offer-add-element  [headerid]="currentHeaderEdit" [offer]="offer" [elementEdit]="currentOfferElemEdit"
+        (addEmit)="afterAddelem($event)"></offer-add-element>
+    </div>
+    <div class="col" *ngIf="listOrderElemConfView">
+      <product-custom mode="part" [headerid]="currentHeaderEdit" [offer]="offer"  
+      (addEmit)="afterAddelem($event)" ></product-custom>
+      <!-- <offer-add-element-config [headerid]="currentHeaderEdit" [offer]="offer" [elementEdit]="currentOfferElemEdit"
+        (addEmit)="afterAddelem($event)"></offer-add-element-config> -->
+    </div>
+  </div>
+</div>
+
+
+<ng-template #element let-elem='elem' let-i='i'>
+  <div class="row justity-content-between border-bottom m-0">
+    <div class="col-5">
+      <div class="d-flex justity-content-between">
+        <ul class="list-inline text-right">
+
+          <li class="list-inline-item ">
+            {{elem.lp}}
+          </li>
+          <li class="list-inline-item ">
+            {{elem.code}}
+          </li>
+          <li class="list-inline-item ">
+            {{elem.name}}
+          </li>
+          <li *ngIf="elem.typ ==='OEC'" class="list-inline-item "><mat-icon>vertical_split</mat-icon></li>
+          <li *ngIf="elem.typ ==='OEH'" class="list-inline-item "><mat-icon>touch_app</mat-icon></li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-2">
+      <div class="d-flex justity-content-between">
+
+        <ul class="list-inline text-right">
+          <li class="list-inline-item ">
+            {{elem.quantity}}</li>
+          <li class="list-inline-item">{{elem.jm}}
+          </li>
+          <!-- <li class="list-inline-item pr-1">
+            {{elem.currency}}
+          </li> -->
+          <li class="list-inline-item">
+            {{elem.vat}}%
+          </li>
+        </ul>
+
+      </div>
+    </div>
+    <div class="col-1 text-right p-0">
+      <span matTooltip="cena zakupu">{{elem.pricePurchase *  elem.quantity |  number : '1.2-2'}}</span>
+    </div>
+    <div class="col-1 text-right p-0">
+      <span matTooltip="cena">{{elem.price |  number : '1.2-2'}}</span>
+    </div>
+    <div class="col-1 text-right p-0">
+      <span matTooltip="wartość">
+        {{(elem.price * elem.quantity) |  number : '1.2-2'}}</span>
+    </div>
+    <div class="col-1 text-right p-0">
+      <span matTooltip="wartość po rabacie">
+        {{elem.priceAfterDiscount |   number : '1.2-2'}}</span>
+    </div>
+    <div class="col-1 text-right">
+      <div class="d-flex justify-content-end ">
+        <button type="button" (click)="editElementOffer(elem)" mat-icon-button color="primary"
+          matTooltip="Edycja produktu">
+          <mat-icon>create</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" type="button" (click)="deleteorderElem(elem)"
+          matTooltip="Kasowanie produktu">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+</ng-template>
+
+<!-- {{orderHeader | json}} -->
+
+<!--CONTAINER-->

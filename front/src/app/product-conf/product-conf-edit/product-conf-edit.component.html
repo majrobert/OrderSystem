@@ -1,0 +1,99 @@
+<div class="container-fluid">
+  <div class="row mb-2">
+    <div class="col">
+      <h4>Produkty configurowalne - edycja</h4>
+    </div>
+    <div class="col text-right">
+      <button mat-raised-button matTooltip="do listy Klientów" routerLink="/productconf/list" type="button"
+        color="primary">
+        <i class="fa fa-arrow-left mr-1"></i> wstecz
+      </button>
+    </div>
+  </div>
+  <div class="card mb-2">
+    <div class="card-body">
+      <div class="row">
+        <div class="col">
+          <span class="text-muted">Kod: </span> {{productConf.code}}
+        </div>
+        <div class="col">
+          <span class="text-muted">Nazwa: </span> {{productConf.name}}
+        </div>
+        <div class="col">
+          <span class="text-muted">Typ towaru: </span> {{ getItemTypString(productConf.type)}}
+        </div>
+        <div class="col">
+          <span class="text-muted">Status: </span> {{getItemStatusString(productConf.status)}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <span class="text-muted">cena: </span> {{productConf.price}}
+        </div>
+        <div class="col">
+          <span class="text-muted">Jednostka:</span> {{productConf.jm}}
+        </div>
+        <div class="col">
+          <span class="text-muted">Vat:</span> {{productConf.vat}}
+        </div>
+        <div class="col">
+          <span class="text-muted">Kategoria:</span> {{productConf.categoryProd}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <span class="text-muted">Opis: </span> {{productConf.description}}
+        </div>
+        <div class="col text-right">
+          <button mat-raised-button matTooltip="edycja pozycji" 
+          type="button"
+            color="primary">
+            <i class="fa fa-pencil-square-o mr-1"></i> Edytuj
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title mb-5">Lista elementów</h4>
+          <div  class="row justify-content-between">
+            <div class="col">Kod</div>
+            <div class="col">Nazwa</div>
+            <div class="col-2 text-right">ilość</div>
+            <div class="col-3 text-right">Akcja</div>
+          </div>
+          <mat-divider></mat-divider>
+      <ng-template [ngTemplateOutlet] = "lista" 
+      [ngTemplateOutletContext] = "{poz:poz, i:i}"
+      *ngFor="let poz of productConfElem; let i = index;">
+    </ng-template>
+      
+        </div>
+      </div>
+
+    </div>
+    <div class="col-6">
+      <products [mode]="mode" (sendProduct)="selectProduct($event)"></products>
+    </div>
+  </div>
+
+</div>
+<ng-template #lista let-poz = 'poz' let-i ='i'>
+  <div  class="row justify-content-between mt-2">
+    <div class="col">{{poz.code}}</div>
+    <div class="col">{{poz.name}}</div>
+    <div class="col-2 text-right">{{poz.quantity}}</div>
+    <div class="col-3 text-right">
+      <button type="button" (click)="editProductConf(poz)" mat-icon-button color="primary" matTooltip="Edycja produktu">
+        <mat-icon>create</mat-icon>
+    </button>&nbsp;
+    <button mat-icon-button color="warn" type="button" (click)="deleteProduct(poz)" matTooltip="Kasowanie produktu">
+        <mat-icon>delete</mat-icon>
+    </button>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+</ng-template>

@@ -1,0 +1,48 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <h4>Waluty - lista kursów</h4>
+    </div>
+  </div><!--EndHeader-->
+<div class="row">
+  <div class="col">
+    <div class="card">
+      <div class="card-body">
+        <mat-list>
+          <div class="list-group">
+            <a *ngFor="let currency of currencys"
+            (click)=" selectToEdit(currency) " [class.active]="curentEdit === currency.id" 
+            class="list-group-item list-group-item-action d-flex justify-content-between">
+              {{currency.name}}
+              <span class="text-muted"> kurs: {{currency.exchange}}</span>
+            </a>
+          </div>
+        </mat-list>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card">
+     <div class="card-body m-1">
+      <h5 class="card-title">{{title}}</h5>
+      <form [formGroup] ="currencyForm"  class="d-flex flex-column">
+        <mat-form-field>
+          <input matInput placeholder="Nazwa Waluty" formControlName="name">
+          <mat-error *ngIf="currencyForm.get('name').errors?.required">
+            proszę wpisać nazwę waluty
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="kurs" 
+          type="number" formControlName ="exchange">
+        </mat-form-field>
+        <div fxLayout="row" fxLayoutAlign="end end">
+          <button mat-button (click)="save()" [disabled]="!currencyForm.valid" color="primary" fxFlex=10 >Zapisz</button>
+          <button mat-button color="primary" fxFlex=10 (click)="resetForm()" >Anuluj</button>
+        </div>
+      </form>
+     </div>
+    </div>
+  </div>
+</div>
+</div>

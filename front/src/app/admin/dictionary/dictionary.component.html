@@ -1,0 +1,75 @@
+<ng-container *ngIf="(dict$ | async) as dictionary">
+    <div class="row">
+        <div class="col-6">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>Nazwa słownika</mat-card-title>
+
+                </mat-card-header>
+                <mat-card-content>
+                    <ng-container *ngIf="!tempEditSlownik">
+                        <div class="card p-4" style="width: 100%;">
+                            <form #slownikAddForm="ngForm" (ngSubmit)="dodajSlownik()" class="form-inline">
+                                <mat-form-field style="width: 80%;">
+                                    <input name="nazwa" required [(ngModel)]="dajNazwaSlownika" matInput
+                                        placeholder="dodaj nazwę działu">
+                                </mat-form-field>
+                                <button [disabled]="!slownikAddForm.valid" mat-icon-button type="submit" color="accent">
+                                    <mat-icon>add_circle_outline</mat-icon>
+                                </button>
+                                <button mat-icon-button type="reset" color="primary">
+                                    <mat-icon>settings_backup_restore</mat-icon>
+                                </button>
+                            </form>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="tempEditSlownik">
+                        <div class="card mt-2 p-4" style="width: 100%;">
+                            <form #slownikEditForm="ngForm"  class="form-inline">
+                                <mat-form-field style="width: 60%;">
+                                    <input name="nazwa" required [(ngModel)]="tempEditSlownik.name" matInput>
+                                </mat-form-field>
+                                <button class="ml-2" [disabled]="!slownikEditForm.valid" mat-raised-button
+                                    color="primary" type="submit">
+                                    Zmień nazwę
+                                </button>
+                                <button class="ml-2" mat-icon-button type="reset" (click)="resetEditSlownikForm()"
+                                    color="primary">
+                                    <mat-icon>settings_backup_restore</mat-icon>
+                                </button>
+                            </form>
+                        </div>
+                    </ng-container>
+                    <div class="card mt-2 p-2" style="width: 100%;">
+                        <mat-list>
+                            <ng-container *ngFor="let dict of dictionary">
+                                <mat-list-item>
+                                    <h4 mat-line>{{dict.name}}</h4>
+                                    <button mat-icon-button color="accent" (click)="skasujSlownik(dict)">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                    <button mat-icon-button color="primary" (click)="edytujSlownik(dict)">
+                                        <mat-icon>edit</mat-icon>
+                                    </button>
+                                    <button mat-icon-button color="primary" (click)="edytujSlownikElement(dict.dictElems)">
+                                        <mat-icon>list</mat-icon>
+                                    </button>
+                                </mat-list-item>
+                                <mat-divider></mat-divider>
+                            </ng-container>
+                            
+                        </mat-list>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div class="col-6">
+            <ng-container *ngIf="tempDictElem.length > 0">
+                <p>{{ tempDictElem | json}}</p>
+            </ng-container>
+            
+        </div>
+    </div>
+
+
+</ng-container>

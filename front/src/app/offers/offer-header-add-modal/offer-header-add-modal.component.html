@@ -1,0 +1,23 @@
+<h1 mat-dialog-title>{{title}}</h1>
+<form [formGroup]="headerForm">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <mat-form-field>
+          <input matInput placeholder="Nazwa" formControlName="name">
+        </mat-form-field>
+      </div>
+      <div class="col">
+        <mat-form-field>
+          <input matInput type="number" placeholder="Sort" formControlName="sort">
+        </mat-form-field>
+      </div>
+
+    </div>
+  </div>
+  <div mat-dialog-actions class="d-flex justify-content-end">
+    <button mat-button mat-raised-button color="primary" [disabled]="!headerForm.valid"
+      (click)="addHeader()">Dodaj</button>
+    <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Anuluj</button>
+  </div>
+</form>

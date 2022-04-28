@@ -1,0 +1,42 @@
+<div class="d-flex justify-content-between ">
+  <div class="container">
+    <mat-card>
+    <mat-card-content class="p-2">
+      <mat-list>
+        <h4 mat-subheader>Lista roli</h4>
+        <ng-container *ngFor="let role of roles">
+        <mat-list-item>
+            <h4 mat-line>{{role.id}}) {{role.name}}</h4>
+        
+        <button mat-icon-button color="accent" (click)="skasuj(role)" >
+            <mat-icon>delete</mat-icon>
+        </button>
+        <button mat-icon-button color="primary" (click)="edytuj(role)">
+            <mat-icon>edit</mat-icon>
+        </button>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      </ng-container>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+  </div>
+  <div class="container">
+    <mat-card>
+    <mat-card-content>
+      <h4 mat-subheader>Nowy - Edycja roli</h4>
+      <form [formGroup]="roleForm" (ngSubmit)="save()"  class="d-flex flex-column p-4">
+        <input type="hidden" formControlName="id">
+        <mat-form-field>
+          <input matInput placeholder="Nazwa roli" formControlName="name">
+        </mat-form-field>
+        <div fxLayout="row" fxLayoutAlign="end end">
+            <button mat-button color="primary" fxFlex=10 type="submit">Zapisz</button>
+            <button mat-button color ="primary" fxFlex=10 type="reset">Anuluj</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+  </div>
+  <!-- flex -->
+</div>

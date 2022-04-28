@@ -1,0 +1,133 @@
+
+
+
+<div class="card mb-2" *ngIf="offer.customer">
+  <div class="card-body">
+    <mat-tab-group>
+      <mat-tab label="Oferta nagłówek">
+        <div class="row mx-2 mt-3">
+          <div class="col">
+            <span class="text-muted">Numer: </span>{{offer?.numberYear}}
+          </div>
+          <div class="col">
+            <span class="text-muted">Data utworzenia: </span>{{offer?.dateCreation  | date : 'dd-MM-yyyy'}}
+          </div>
+          <div class="col">
+            <span class="text-muted">Data obowiązywania: </span>{{offer?.dateLimit | date : 'dd-MM-yyyy'}}
+          </div>
+          <div class="col">
+            <span class="text-muted">Data realizacji: </span>{{offer?.dateReali | date : 'dd-MM-yyyy'}}
+          </div>
+        </div>
+        <div class="row mx-2">
+          <div class="col">
+            <!-- <span class="text-muted">Status: </span>{{offer?.status}} -->
+          </div>
+          <div class="col">
+            <span class="text-muted">Waluta: </span>{{offer?.currency.name}}
+          </div>
+          <div class="col">
+            <span class="text-muted">Kurs: </span>{{offer?.currency.exchange}}
+          </div>
+          <div class="col">
+            <span class="text-muted">Utworzył: </span>
+          </div>
+        </div>
+        <div class="row mx-2">
+          <div class="col">
+            <span class="text-muted">Uwagi: </span>{{offer?.description}}
+          </div>
+        </div>
+
+      </mat-tab>
+      <mat-tab label="Główny">
+        <div class="row mx-2 mt-3">
+          <div class="col">
+            <span class="text-muted">Akronim: </span>{{offer?.customer.akronim}}
+          </div>
+          <div class="col">
+            <span class="text-muted">Nazwa: </span>{{offer?.customer.name}}
+          </div>
+          <div class="col">
+            <span class="text-muted">Kontakt: </span>{{offer?.customer.contact}}
+          </div>
+          <div class="col">
+            <span class="text-muted">Telefon: </span>{{offer?.customer.phone}}
+          </div>
+        </div>
+        <div class="row mx-2">
+          <div class="col">
+            <span class="text-muted">Nip: </span>{{offer?.customer.nip}}
+          </div>
+          <div class="col">
+            <span class="text-muted">Grupa cenowa: </span>{{offer?.customer.priceSpecs}}
+          </div>
+          <div class="col">
+            <span class="text-muted">Kategoria: </span>{{offer?.customer.categoryCustomer}}
+          </div>
+          <div class="col">
+            <span class="text-muted">Status: </span>{{offer?.customer.status}}
+          </div>
+        </div>
+        <div class="row mx-2">
+          <div class="col">
+            <span class="text-muted">Ulica: </span>{{offer?.customer.streed}}
+          </div>
+          <div class="col">
+            <span class="text-muted">Miasto: </span>{{offer?.customer.city}}
+          </div>
+          <div class="col">
+            <span class="text-muted">Kod pocztowy: </span>{{offer?.customer.zipCode}}
+          </div>
+          <div class="col">
+            <span class="text-muted">Cdn: </span>{{offer?.customer.gidCdn}}
+          </div>
+        </div>
+
+      </mat-tab>
+      <mat-tab label="Docelowy" >
+        <div class="row mx-2 mt-3">
+          <div class="col">
+            <span class="text-muted">Akronim: </span>{{customerD?.akronim}}
+          </div>
+          <div class="col">
+            <span class="text-muted">Nazwa: </span>{{customerD?.name}}
+          </div>
+          <div class="col">
+            <span class="text-muted">Kontakt: </span>{{customerD?.contact}}
+          </div>
+          <div class="col">
+            <span class="text-muted">Telefon: </span>{{customerD?.phone}}
+          </div>
+        </div>
+        <div class="row mx-2">
+          <div class="col">
+            <span class="text-muted">Nip: </span>{{customerD?.nip}}
+          </div>
+          <div class="col">
+            <span class="text-muted">Grupa cenowa: </span>{{customerD?.priceSpecs}}
+          </div>
+          <div class="col">
+            <span class="text-muted">Kategoria: </span>{{customerD?.categoryCustomer}}
+          </div>
+          <div class="col">
+            <span class="text-muted">Status: </span>{{customerD?.status}}
+          </div>
+        </div>
+        <div class="row mx-2">
+          <div class="col">
+            <span class="text-muted">Ulica: </span>{{customerD?.streed}}
+          </div>
+          <div class="col">
+            <span class="text-muted">Miasto: </span>{{customerD?.city}}
+          </div>
+          <div class="col">
+            <span class="text-muted">Kod pocztowy: </span>{{customerD?.zipCode}}
+          </div>
+          <div class="col">
+            <span class="text-muted">Cdn: </span>{{customerD?.gidCdn}}
+          </div>
+        </div>
+      </mat-tab>
+
+    </mat-tab-group> 

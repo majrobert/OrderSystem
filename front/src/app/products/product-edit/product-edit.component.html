@@ -1,0 +1,101 @@
+<div class="container-fluid">
+  <div class="row align-items-center mb-2">
+    <div class="col">
+      <h4>Edycja Produktu</h4>
+    </div>
+    <div class="col text-right">
+      <button mat-raised-button matTooltip="do listy produktów" routerLink="/products" type="button" color="primary">
+        <i class="fa fa-arrow-left mr-1"></i> wstecz
+      </button>
+    </div>
+  </div>
+  <!--row header-->
+  <div class="row align-items-center mb-2">
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <form [formGroup]="prductForm">
+            <div class="container">
+
+              <div class="form-row">
+                <mat-form-field class="col-md-4">
+                  <input matInput placeholder="Kod Towaru" formControlName="code">
+                  <mat-error *ngIf="prductForm.get('code').errors?.required">
+                    Proszę wpisać kod towaru
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field class="col-md-8">
+                  <input matInput placeholder="Nazwa towaru" formControlName="name">
+                  <mat-error *ngIf="prductForm.get('name').errors?.required">
+                    Proszę wpisać nazwę towaru
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="row">
+                <mat-form-field class="col">
+                  <input matInput type="number" placeholder="Cena" formControlName="price">
+                </mat-form-field>
+                <mat-form-field class="col">
+                  <input matInput type="number" placeholder="Stawka vat" formControlName="vat">
+                </mat-form-field>
+                <mat-form-field class="col">
+                  <mat-label>Typ towaru</mat-label>
+                  <mat-select placeholder="Typ Towaru" formControlName="type">
+                    <mat-option *ngFor="let type of typeProduct" [value]="type.value">
+                      {{type.name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="form-row">
+                <mat-form-field class="col">
+                  <mat-select formControlName="jm" placeholder="jedMas">
+                    <mat-option value="szt.">szt.</mat-option>
+                    <mat-option value="op.">op.</mat-option>
+                    <mat-option value="kpl.">kpl.</mat-option>
+                    <mat-option value="szt.">m</mat-option>
+                    <mat-option value="m2">m2</mat-option>
+                    <mat-option value="kg.">kg.</mat-option>
+                    <mat-option value="g.">g.</mat-option>
+                    <mat-option value="l.">l.</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field class="col">
+                  <mat-label>Kategoria</mat-label>
+                  <mat-select placeholder="Kategoria" formControlName="categoryProdId">
+                    <mat-option *ngFor="let kateg of kategorie" [value]="kateg.id">
+                      {{kateg.name}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="prductForm.get('categoryProdId').errors?.required">
+                    Proszę wybrać kategorie
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field class="col">
+                  <mat-label>Status</mat-label>
+                  <mat-select placeholder="Status" formControlName="status">
+                    <mat-option *ngFor="let status of statusProduct" [value]="status.value">
+                      {{status.name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="form-row">
+                <div class="col">
+                  <ckeditor [editor]="editor" placeholder="Opis" formControlName="description" ></ckeditor>
+                </div>
+              </div>
+            </div>
+            <div mat-dialog-actions class="d-flex align-items-end">
+              <button mat-button mat-raised-button color="primary" [disabled]="!prductForm.valid"
+                (click)="updateProduct()">Aktualizuj</button>
+            </div>
+          </form>
+
+        </div>
+        <!--End card form-->
+      </div>
+    </div>
+  </div>
+  <!--row form-->
+</div>

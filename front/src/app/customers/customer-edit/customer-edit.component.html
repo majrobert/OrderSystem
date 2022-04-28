@@ -1,0 +1,86 @@
+<div class="container-fluid">
+  <div class="row align-items-center mb-2">
+    <div class="col">
+      <h4>{{title}}</h4>
+    </div>
+    <div class="col text-right">
+      <button mat-raised-button matTooltip="do listy Klientów" routerLink="/customers" type="button" color="primary">
+        <i class="fa fa-arrow-left mr-1"></i> wstecz
+      </button>
+    </div>
+  </div>
+  <!--row Header-->
+  <div class="row align-items-center mb-2">
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <form [formGroup]="customerForm">
+            <div class="container">
+              <div class="form-row">
+                <mat-form-field class="col-md-4">
+                  <input matInput placeholder="akronim" formControlName="akronim">
+                </mat-form-field>
+                <mat-form-field class="col-md-8">
+                  <input matInput placeholder="Nazwa klienta" formControlName="name">
+                </mat-form-field>
+              </div>
+              <div class="row">
+                <mat-form-field class="col-md-4">
+                  <input matInput placeholder="telefon" formControlName="phone">
+                </mat-form-field>
+                <mat-form-field class="col-md-8">
+                  <input matInput placeholder="Kontakt" formControlName="contact">
+                </mat-form-field>
+              </div>
+              <div class="row">
+                <mat-form-field class="col">
+                  <input matInput placeholder="Nip" formControlName="nip">
+                </mat-form-field>
+                <mat-form-field class="col">
+                  <mat-label>Kategoria</mat-label>
+                  <mat-select placeholder="Kategoria" formControlName="categoryCustomerId">
+                    <mat-option *ngFor="let kateg of kategorie" [value]="kateg.id">
+                      {{kateg.name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field class="col">
+                  <mat-label>Typ ceny</mat-label>
+                  <mat-select placeholder="Typ ceny" formControlName="priceId">
+                    <mat-option *ngFor="let price of priceType" [value]="price.id">
+                      {{price.name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="row">
+                <mat-form-field class="col">
+                  <input matInput placeholder="Miasto" formControlName="city">
+                </mat-form-field>
+                <mat-form-field class="col">
+                  <input matInput placeholder="Ulica" formControlName="streed">
+                </mat-form-field>
+                <mat-form-field class="col">
+                  <input matInput placeholder="Kod pocztowy" formControlName="zipCode">
+                </mat-form-field>
+                <mat-form-field class="col">
+                  <mat-label>Status</mat-label>
+                  <mat-select  placeholder="Status" formControlName="status"> 
+                    <mat-option value= 1>Aktywny</mat-option>
+                    <mat-option value= 2>Nieaktywny</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div mat-dialog-actions class="d-flex justify-content-end">
+                <button mat-button mat-raised-button color="primary" [disabled]="!customerForm.valid"
+                  (click)="updateCustomer()">Aktualizuj</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,153 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+        <div class="clearfix">
+          <div class="d-flex justify-content-between">
+            <div class="float-left">
+              <img src="assets/images/logo_polnet.png" alt="POLnet" height="48" />
+            </div>
+            <div class="float-right">
+              <address class="mt-2 small">
+                Polnet Sp. z o.o. i Wspólnicy Spółka Komandytowa<br>
+                ul. Sowia 13B<br>
+                62-080 Tarnowo Podgórne, Polska<br>
+                NIP: 621-17-06-651<br>
+                + 48 65 548 27 07
+              </address>
+            </div>
+          </div>
+        </div>
+
+        <h4 class="text-center">Oferta: {{offer.numberYear}} </h4>
+
+        <div class="d-flex justify-content-between">
+          <div class="float-left small">
+            <h6 class="font-weight-normal">Przygotowana dla:</h6>
+            <h6 class="font-size-16">{{offer.customer.name}}</h6>
+            <address>
+              {{offer.customer.streed}}<br>
+              {{offer.customer.city}} {{offer.customer.zipCode}} <br>
+              {{offer.customer.phone}}
+            </address>
+          </div> <!-- end col -->
+
+          <div class="float-right small">
+            <h6 class="font-weight-normal">Odbiorca:</h6>
+            <h6 class="font-size-16">{{offer.customer.name}}</h6>
+            <address>
+              {{offer.customer.streed}}<br>
+              {{offer.customer.city}} {{offer.customer.zipCode}} <br>
+              {{offer.customer.phone}}
+            </address>
+          </div> <!-- end col -->
+        </div>
+
+        <div class="row" >
+         
+         
+          <div class="col-12">
+            <!-- <div class="row">
+              <div class="col"> <h5>{{header.name}}</h5></div>
+              <div class="col text-right">suma netto: {{sumWartosct(header.orderElem) |  number : '1.2-2'}}</div>
+            </div> -->
+            <div class="table-responsive">
+           
+              <table class="table  table-sm table-centered small">
+                <thead>
+                  <tr>
+                    <th style="width: 10%">LP.</th>
+                    <th style="width: 20%">KOD</th>
+                    <th style="width: 30%">NAZWA</th>
+                    <th style="width: 10%"  class="text-right">ILOŚĆ</th>
+                    <th style="width: 10%">JEDN. <br> MIARY</th>
+                    <th style="width: 10%"  class="text-right">CENNA<br> NETTO</th>
+                    <th style="width: 10%" class="text-right">WARTOŚĆ<br> NETTO</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <ng-container *ngFor="let header of orderHeader">
+                  <tr>
+                    <td></td>
+                    <td colspan="4">
+                     <strong>{{header.name | uppercase}}</strong>
+                    </td>
+                    <td colspan="2" class="text-right"> <strong>{{sumWartosct(header.orderElem) |  number : '1.2-2'}}</strong></td>
+                  </tr>
+                  <ng-container  *ngFor="let elem of header.orderElem" >
+                  <tr>
+                    <td>{{elem.lp}}</td>
+                    <td colspan="2">
+                    <div class="row pl-2">
+                      <div class="col-5">{{elem.code}}</div>
+                      <div class="col-7">{{elem.name}}</div>
+                      <!-- <div *ngIf="elem.description" [innerHTML] = "elem.description" class="col-12 text-muted font-italic"></div> -->
+                    </div>
+                  </td>
+                    <td class="text-right">{{elem.quantity}}</td>
+                    <td>{{elem.jm}}</td>
+                    <td class="text-right">{{elem.price |  number : '1.2-2'}}</td>
+                    <td class="text-right">{{(elem.price * elem.quantity ) |  number : '1.2-2'  }}</td>
+                  </tr>
+                  <tr *ngIf="elem.description">
+                    <td style="border: none;"></td>
+                    <td style="border: none;" colspan="5">
+                      <div *ngIf="elem.description" [innerHTML] = "elem.description" class=" pl-2 text-muted font-italic"></div>
+                    </td>
+                    <td style="border: none;" colspan="1"></td>
+                  </tr>
+                </ng-container>
+                </ng-container>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div><!-- end table-responsive -->
+
+
+        <div class="clearfix mt-5">
+          <div class="d-flex justify-content-between">
+            <div class="float-left">
+              <table class="small">
+                <tr> 
+                  <td>Data utworzenia:  </td>
+                  <td class="text-right">{{offer.dateCreation  | date : 'dd-MM-yyyy'}}</td>
+                </tr>
+                <tr> 
+                  <td>Data Ważności:  </td>
+                  <td class="text-right">{{offer.dateLimit | date : 'dd-MM-yyyy'}}</td>
+                </tr>
+              </table>
+            </div>
+            <div class="float-right">
+              <table class="small">
+                <tr> 
+                  <td>Wartość netto:  </td>
+                  <td class="text-right">{{sums.sumWart  |  number : '1.2-2'  }}</td>
+                </tr>
+                <tr> 
+                  <td>Wartośc udzielonego rabatu:  </td>
+                  <td class="text-right">{{ (sums.sumWart - sums.sumDiscount) |  number : '1.2-2'  }}</td>
+                </tr>
+                <tr> 
+                  <td>Wartośc netto po rabacie:  </td>
+                  <td class="text-right">{{ sums.sumDiscount |  number : '1.2-2'  }}</td>
+                </tr>
+              </table>
+              <div class="mt-2">wartość do zapłaty: {{ sums.sumBrutto |  number : '1.2-2' }}</div>
+              
+            </div>
+          </div>
+        </div>
+        <div class="mt-2 text-right">razem słownie: {{ slowa(sums.sumBrutto) }}</div>
+
+        <div class="mt-5 mb-1">
+          <div class="text-right d-print-none">
+            <a href="javascript:window.print()" class="btn btn-primary"><i class="uil uil-print mr-1"></i> Print</a>
+            <a href="javascript: void(0);" class="btn btn-info ml-1">Submit</a>
+          </div>
+        </div>
+      
+    </div>
+  </div> <!-- end col -->
+</div>
+

@@ -1,0 +1,64 @@
+<h3>{{title}}</h3>
+  <div class="card mb-2">
+    <div class="card-body">
+      <h5 class="card-title">Dane:</h5>
+      <div class="row">
+        <div class="col-6"><span class="text-muted">Kod: </span>{{offer.code}} </div>
+        <div class="col-6"><span class="text-muted">Nazwa: </span>{{offer.name}}</div>
+      </div>
+      <div class="row">
+        <div class="col-3"><span class="text-muted">Jm: </span>{{offer.jm}} </div>
+        <div class="col-3"><span class="text-muted">Vat: </span>{{offer.vat}} </div>
+      </div>
+    </div>
+  </div>
+<form [formGroup]="orderElemForm">
+  <div class="card">
+    <div class="card-body">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col">
+            <mat-form-field>
+              <input matInput placeholder="Sort" 
+              type="number"  formControlName="sort">
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field>
+              <input matInput placeholder="Lp" 
+            formControlName="lp">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field>
+              <input matInput placeholder="Ilość" 
+              type="number"  formControlName="quantity">
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field>
+              <input matInput placeholder="Cena" 
+              type="number" formControlName="priceAfterDiscount">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field>
+              <input matInput placeholder="opis" 
+              formControlName="description">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+<div mat-dialog-actions class="d-flex justify-content-end">
+  <button mat-button mat-raised-button color="primary" [disabled]="!orderElemForm.valid"
+    (click)="addPoz()">Dodaj</button>
+  <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Anuluj</button>
+</div>
+</form>

@@ -1,0 +1,203 @@
+<div class="container-fluid">
+  <div class="row mb-1">
+    <div class="col">
+      <h4>Edycja Oferty - Elementu nietypowego</h4>
+    </div>
+    <div class="col text-right">
+      <button [routerLink]="['/offers/edit/', offerId]" mat-raised-button matTooltip="dodaj nowy nagłówek"
+        color="primary" type="button">
+        <i class="fa fa-angle-double-left mr-1"> </i> do oferty
+      </button>
+    </div>
+  </div>
+  <!-- <offer-header [offer]="offer"></offer-header> -->
+  <div class="card mb-1">
+    <div class="card-body">
+      <h6 class="card-subtitle  text-muted">Dokument</h6>
+      <div class="row">
+        <div class="col">
+          <span class="text-muted small">Numer: </span>{{offer.numberYear}}
+        </div>
+        <div class="col">
+          <span class="text-muted small">Data utworzenia: </span>{{offer.dateCreation  | date : 'dd-MM-yyyy'}}
+        </div>
+        <div class="col">
+          <span class="text-muted small">Waluta: </span>{{offer.currency.name}}
+        </div>
+        <div class="col">
+          <span class="text-muted small">Kurs: </span>{{offer.currency.exchange}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card mb-1">
+    <div class="card-body">
+      <h6 class="card-subtitle  text-muted">Produkt główny</h6>
+      <div class="float-right">
+        <button class="m-0" type="button" (click)="editElemConf(orderElemConf)" 
+        mat-icon-button color="primary" matTooltip="Edycja produktu">
+          <mat-icon>create</mat-icon>
+        </button>
+      </div>
+      <div class="row">
+        <div class="col">
+          <span class="text-muted small">Kod: </span>{{orderElemConf?.code}}
+        </div>
+        <div class="col">
+          <span class="text-muted small">Nazwa: </span>{{orderElemConf?.name}}
+        </div>
+        <div class="col">
+          <span class="text-muted small">Vat: </span>{{orderElemConf?.vat}}
+        </div>
+        <div class="col">
+          <span class="text-muted small">jm: </span>{{orderElemConf?.jm}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <span class="text-muted small">liość: </span>{{orderElemConf?.quantity}}
+        </div>
+        <div class="col">
+          <span class="text-muted small">cena zakupu: </span>{{orderElemConf?.pricePurchase *  orderElemConf?.quantity |  number : '1.2-2'}}
+        </div>
+        <div class="col">
+          <span class="text-muted small">wartość: </span> {{(orderElemConf?.price * orderElemConf?.quantity) |  number : '1.2-2'}}
+        </div>
+        <div class="col">
+          <span class="text-muted small">wartość po rabacie: </span>{{orderElemConf?.priceAfterDiscount |   number : '1.2-2'}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <span class="text-muted small">Opis: </span>{{orderElemConf?.description}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mb-1">
+    <div class="card-body">
+      <h6 class="card-subtitle  text-muted">Podsumowanie pozycji (dla 1 jesnostki produktu głównego)</h6>
+      <div class="row">
+        <div class="col">
+          <span class="text-muted small">Wartość: </span>{{getSumOfferSElem.sumWart}}
+        </div>
+        <div class="col">
+          <span class="text-muted small">Po rabacie: </span>{{getSumOfferSElem.sumDiscount}}
+        </div>
+        <div class="col">
+          <span class="text-muted small">Zakup: </span>{{getSumOfferSElem.sumZakup}}
+        </div>
+        <div class="col">
+          <span class="text-muted small">Brutto: </span>{{getSumOfferSElem.sumBrutto}}
+        </div>
+        <div class="col">
+          <span class="text-muted small">Upust: </span>{{getSumOfferSElem.sumUpust}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">lista elementów</h4>
+          <ng-template [ngTemplateOutlet]="listael" 
+          [ngTemplateOutletContext]="{poz:poz, i:i}"
+          *ngFor="let poz of ordertSElem; let i = index;">
+        </ng-template>
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">lista elementów</h4>
+          <ng-template [ngTemplateOutlet]="lista" 
+          [ngTemplateOutletContext]="{poz:poz, i:i}"
+            *ngFor="let poz of productPriceConf; let i = index;">
+          </ng-template>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<ng-template #listael let-poz='poz' let-i='i'>
+ <div class="float-right m-0">
+ <button class="m-0" type="button" (click)="editSElem(poz)" 
+ mat-icon-button color="primary" matTooltip="Edycja produktu">
+   <mat-icon>create</mat-icon>
+ </button>
+ <button class="m-0" type="button" (click)="deleteSElem(poz)" 
+ mat-icon-button color="primary" matTooltip="Edycja produktu">
+  <mat-icon>remove_circle_outline</mat-icon>
+</button>
+</div>
+ <div class="row justify-content-between ">
+   <div class="col-4"><span class="text-muted small">
+     Kod: </span>{{poz.code}}</div>
+   <div class="col-8"><span class="text-muted small">
+     Nazwa: </span>{{poz.name}}</div>
+
+ </div>
+ <div class="row justify-content-between">
+ <div class="col"><span class="text-muted small">
+   Ilość: </span>{{poz.quantity}}</div> 
+ <div class="col"><span class="text-muted small">
+   Jm: </span>{{poz.jm}}</div> 
+ <div class="col"><span class="text-muted small">
+   Vat: </span>{{poz.vat}}</div> 
+ </div>
+
+ <div class="row justify-content-between ml-1 ">
+  <div class="col"><span class="text-muted small">
+    Zakup: </span>{{poz.pricePurchase *  poz.quantity |  number : '1.2-2'}}</div>
+  <div class="col"><span class="text-muted small">
+    Neto: </span>{{(poz.price * poz.quantity) |  number : '1.2-2'}}</div>
+  <div class="col"><span class="text-muted small">
+    Po rabacie: </span>{{poz.priceAfterDiscount |   number : '1.2-2'}}</div>
+ </div>
+
+ <mat-divider></mat-divider>
+</ng-template>
+
+<ng-template #lista let-poz='poz' let-i='i'>
+   <ng-container *ngIf="!poz.isOrderElem">
+  <div class="float-right m-0">
+  <button class="m-0" type="button" (click)="addToElement(poz)" 
+  mat-icon-button color="primary" matTooltip="Edycja produktu">
+    <mat-icon>add_circle_outline</mat-icon>
+  </button>
+</div>
+  <div class="row justify-content-between ">
+    <div class="col-4"><span class="text-muted small">
+      Kod: </span>{{poz.productCode}}</div>
+    <div class="col-8"><span class="text-muted small">
+      Nazwa: </span>{{poz.productName}}</div>
+
+  </div>
+  <div class="row justify-content-between">
+    <div class="col"><span class="text-muted small">
+      Cena: </span>{{poz.cost}}</div>
+    <div *ngIf="poz.priceSpec" class="col">
+      <span class="text-muted small">Cena specialna: 
+      </span>{{poz.priceSpec}}</div>
+    <div class="col-3"><span class="text-muted small">
+      Ilość: </span>{{poz.quantity}}</div>
+  </div>
+
+  <div class="row justify-content-between ml-1 ">
+    <div class="col-2"><span class="text-muted small">
+      Jm: </span>{{poz.productJm}}</div>
+    <div class="col-2"><span class="text-muted small">
+      Vat: </span>{{poz.productVat}}</div>
+    <div class="col"><span class="text-muted small">
+      Kategoria: </span>{{poz.categoryProd}}</div>
+  </div>
+
+  <mat-divider></mat-divider>
+</ng-container>
+</ng-template>

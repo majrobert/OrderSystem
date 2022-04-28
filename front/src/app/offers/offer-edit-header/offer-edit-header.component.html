@@ -1,0 +1,182 @@
+<div class="container-fluid">
+  <div class="row mb-2">
+    <div class="col">
+      <h4>{{title}}</h4>
+    </div>
+    <div class="col text-right">
+      <button class="mr-1" mat-raised-button matTooltip="do listy produktów" (click)="changeCustomer()" type="button"
+        color="primary">
+        <i class="fa fa-user-plus mr-1"></i> {{buttonTitle}}
+      </button>
+      <button *ngIf="customerG" mat-button matTooltip="do listy produktów" (click)="changeCustomerG()" type="button"
+        color="primary">
+        <i class="fa fa-user-plus mr-1"></i> Zmień klienta docelowego
+      </button>
+    </div>
+  </div>
+  <div class="card mb-2" *ngIf="addCustomerMode">
+    <div class="card-body">
+      <customers mode="part" (sendClient)="setCustomer($event)"></customers>
+    </div>
+  </div>
+  <!--Edit mode clients-->
+  <div class="card mb-2" *ngIf="customerG">
+    <div class="card-body">
+      <mat-tab-group>
+        <mat-tab label="Główny">
+          <div class="row mx-2 mt-3">
+            <div class="col">
+              <span class="text-muted">Akronim: </span>{{customerG.akronim}}
+            </div>
+            <div class="col">
+              <span class="text-muted">Nazwa: </span>{{customerG.name}}
+            </div>
+            <div class="col">
+              <span class="text-muted">Kontakt: </span>{{customerG.contact}}
+            </div>
+            <div class="col">
+              <span class="text-muted">Telefon: </span>{{customerG.phone}}
+            </div>
+          </div>
+          <div class="row mx-2">
+            <div class="col">
+              <span class="text-muted">Nip: </span>{{customerG.nip}}
+            </div>
+            <div class="col">
+              <span class="text-muted">Grupa cenowa: </span>{{customerG.priceSpecs}}
+            </div>
+            <div class="col">
+              <span class="text-muted">Kategoria: </span>{{customerG.categoryCustomer}}
+            </div>
+            <div class="col">
+              <span class="text-muted">Status: </span>{{customerG.status}}
+            </div>
+          </div>
+          <div class="row mx-2">
+            <div class="col">
+              <span class="text-muted">Ulica: </span>{{customerG.streed}}
+            </div>
+            <div class="col">
+              <span class="text-muted">Miasto: </span>{{customerG.city}}
+            </div>
+            <div class="col">
+              <span class="text-muted">Kod pocztowy: </span>{{customerG.zipCode}}
+            </div>
+            <div class="col">
+              <span class="text-muted">Cdn: </span>{{customerG.gidCdn}}
+            </div>
+          </div>
+
+        </mat-tab>
+        <mat-tab label="Docelowy">
+          <div class="row mx-2 mt-3">
+            <div class="col">
+              <span class="text-muted">Akronim: </span>{{customerD.akronim}}
+            </div>
+            <div class="col">
+              <span class="text-muted">Nazwa: </span>{{customerD.name}}
+            </div>
+            <div class="col">
+              <span class="text-muted">Kontakt: </span>{{customerD.contact}}
+            </div>
+            <div class="col">
+              <span class="text-muted">Telefon: </span>{{customerD.phone}}
+            </div>
+          </div>
+          <div class="row mx-2">
+            <div class="col">
+              <span class="text-muted">Nip: </span>{{customerD.nip}}
+            </div>
+            <div class="col">
+              <span class="text-muted">Grupa cenowa: </span>{{customerD.priceSpecs}}
+            </div>
+            <div class="col">
+              <span class="text-muted">Kategoria: </span>{{customerD.categoryCustomer}}
+            </div>
+            <div class="col">
+              <span class="text-muted">Status: </span>{{customerD.status}}
+            </div>
+          </div>
+          <div class="row mx-2">
+            <div class="col">
+              <span class="text-muted">Ulica: </span>{{customerD.streed}}
+            </div>
+            <div class="col">
+              <span class="text-muted">Miasto: </span>{{customerD.city}}
+            </div>
+            <div class="col">
+              <span class="text-muted">Kod pocztowy: </span>{{customerD.zipCode}}
+            </div>
+            <div class="col">
+              <span class="text-muted">Cdn: </span>{{customerD.gidCdn}}
+            </div>
+          </div>
+        </mat-tab>
+
+      </mat-tab-group>
+
+
+    </div>
+  </div>
+  <div class="card" *ngIf="customerG">
+    <div class="card-body">
+      <div class="row">
+        <div class="col">
+          <mat-form-field>
+            <mat-label>Waluta</mat-label>
+            <mat-select [(value)]="currencyList" placeholder="Kategoria" (selectionChange)="loadProducts()"
+              class="mat-form-field mat-form-field-fluid">
+              <mat-option *ngFor="let curen of currency" [value]="curen.id">
+                {{curen.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field>
+            <mat-label>Seria</mat-label>
+            <mat-select [(value)]="seriaList" (selectionChange)="loadProducts()"
+              class="mat-form-field mat-form-field-fluid">
+              <mat-option value="A">A</mat-option>
+              <mat-option value="DEX">DEX</mat-option>
+              <mat-option value="FS1">FS1</mat-option>
+              <mat-option value="FG">FG</mat-option>
+              <mat-option value="PROD">PROD</mat-option>
+              <mat-option value="SIL">SIL</mat-option>
+              <mat-option value="WET">WET</mat-option>
+              <mat-option value="WDT">WDT</mat-option>
+              <mat-option value="WNT">WNT</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field>
+            <input matInput [matDatepicker]="picker" [(ngModel)]="dataObowiazywania" name="name"
+              placeholder="data obowiązywania" />
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field>
+            <input matInput [matDatepicker]="picker2" [(ngModel)]="dataRealizacji" name="name"
+              placeholder="data zealizacji" />
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <mat-form-field class="col">
+          <textarea matInput placeholder="Opis" [(ngModel)]="opis"></textarea>
+        </mat-form-field>
+        <div class="col text-right justi">
+          <button class="mr-1" mat-raised-button matTooltip="do listy produktów" (click)="addHeader()" type="button"
+          color="primary">
+          <i class="fa fa-plus mr-1"></i> dodaj nagłówek
+        </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

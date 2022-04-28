@@ -1,0 +1,37 @@
+<h1 mat-dialog-title>{{title}}</h1>
+<mat-dialog-content>
+<div class="container-fluid">
+  <div class="card ">
+    <div class="card-body mb-2">
+    <div class="row mb-2">
+      <div class="col">Kod</div>
+      <div class="col">{{product.code}}</div>
+    </div>
+    <div class="row">
+      <div class="col">Nazwa</div>
+      <div class="col">{{product.name}}</div>
+    </div>
+    <hr/>
+    <div class="row">
+      <div class="col">Nazwa ceny</div>
+      <div class="col">{{priceType.name}}</div>
+    </div>
+  </div>
+</div>
+<div class="card mb-2">
+  <div class="card-body">
+    <mat-form-field class="col">
+      <input matInput 
+      type="number" 
+      placeholder="Cena"
+     [(ngModel)] = "price">
+    </mat-form-field>
+  </div>
+</div>
+</div>
+</mat-dialog-content>
+
+<div mat-dialog-action class="d-flex justify-content-end">
+  <button mat-button mat-raised-button color="primary" (click)="dodajCene()">Dodaj</button>
+  <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Anuluj</button>
+</div>

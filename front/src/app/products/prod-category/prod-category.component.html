@@ -1,0 +1,55 @@
+<div class="container-fluid">
+  <div class="row mb-2">
+    <div class="col">
+      <h4>Produkty - Lista kategorji</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <mat-card>
+        <mat-card-content class="p-2">
+          <mat-list>
+            <h4 mat-subheader>Lista kategorji</h4>
+            <ng-container *ngFor="let category of categories">
+              <mat-list-item>
+                <h4 mat-line>{{category.sort}} ){{category.name}}</h4>
+                <p mat-line>{{category.details}}</p>
+                <button mat-icon-button color="accent" (click)="skasuj(category)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+                <button mat-icon-button color="primary" (click)="edytuj(category)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+            </ng-container>
+          </mat-list>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="col">
+      <mat-card>
+        <mat-card-content>
+          <h4 mat-subheader>Nowy - Edycja kategorji</h4>
+          <form [formGroup]="categoryForm" (ngSubmit)="save()" class="d-flex flex-column p-4">
+            <input type="hidden" formControlName="id">
+            <mat-form-field>
+              <input matInput placeholder="Nazwa roli" formControlName="name">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="opis" formControlName="details">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="sort" type="number" min="1" formControlName="sort">
+            </mat-form-field>
+            <div fxLayout="row" fxLayoutAlign="end end">
+              <button mat-button color="primary" fxFlex=10 type="submit">Zapisz</button>
+              <button mat-button color="primary" fxFlex=10 type="reset">Anuluj</button>
+            </div>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+</div>

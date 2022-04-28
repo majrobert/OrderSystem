@@ -1,0 +1,53 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <h4>Lista Cenników</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <mat-list>
+            <div class="list-group">
+              <a *ngFor="let type of priceListtype" [class.active]="curentEdit === type.id"
+                (click)=" selectToEdit(type)"
+                class="list-group-item list-group-item-action d-flex justify-content-between">
+                {{type.name}}
+                <span class="text-muted"> narzut: {{type.margin}}</span>
+              </a>
+            </div>
+          </mat-list>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Edycja - Typu cen</h5>
+          <form [formGroup]="priceTypeform" (ngSubmit) ="save()" class="d-flex flex-column" >
+            <mat-form-field>
+              <input matInput placeholder ="Nazwa typu ceny" formControlName="name">
+              <mat-error *ngIf="priceTypeform.get('name').errors?.required">
+                Proszę wpisać nazwę grupy
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder ="Narzut cenowy" type="number" formControlName="margin">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder ="Sort" type="number" formControlName="sort">
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder ="Status " type="number" formControlName="status">
+            </mat-form-field>
+            <div fxLayout="row" fxLayoutAlign="end end">
+              <button mat-button [disabled]="!priceTypeform.valid" color="primary" fxFlex=10 type="submit">Zapisz</button>
+              <button mat-button color="primary" fxFlex=10 type="reset">Anuluj</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

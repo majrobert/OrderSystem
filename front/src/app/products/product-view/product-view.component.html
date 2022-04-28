@@ -1,0 +1,101 @@
+<div class="content-fluid">
+  <div class="row">
+    <div class="col">
+      <h2>Podgląd towaru</h2>
+    </div>
+    <div class="col text-right">
+      <button mat-raised-button matTooltip="do listy Klientów" routerLink="/products" type="button" color="primary">
+        <i class="fa fa-arrow-left mr-1"></i> wstecz
+      </button>
+    </div>
+  </div>
+  <div class="card mb-2">
+    <div class="card-body">
+      <div class="row">
+        <div class="col">
+          <p><span class="text-muted">Kod: </span> {{product.code}}</p>
+        </div>
+        <div class="col">
+          <p><span class="text-muted">Nazwa: </span> {{product.name}}</p>
+        </div>
+        <div class="col">
+          <p><span class="text-muted">Typ towaru: </span> {{ getItemTypString(product.type)}}</p>
+        </div>
+        <div class="col">
+          <p><span class="text-muted">Status: </span> {{getItemStatusString(product.status)}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <p><span class="text-muted">Cena: </span> {{product.price}}</p>
+        </div>
+        <div class="col">
+          <p><span class="text-muted">Jednostka:</span> {{product.jm}}</p>
+        </div>
+        <div class="col">
+          <p><span class="text-muted">Vat:</span> {{product.vat}}</p>
+        </div>
+          <div class="col">
+          <p><span class="text-muted">Kategoria:</span> {{product.categoryProd}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <p class="small" [innerHTML]="product.description"><span class="text-muted">Opis: </span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <h5 class="card-title header-title">Cennik - grupy cen</h5>
+            </div>
+          </div>
+          <mat-list>
+            <div class="list-group">
+              <a *ngFor="let type of  priceTypeWitchProductPrice"
+
+                class="list-group-item list-group-item-action d-flex justify-content-between">
+                {{type.name}}
+                <span *ngIf="!type.cost" class="text-muted"> cena sugerowana: {{(product.price * type.margin) |  number : '1.2-2'}}</span>
+                <span *ngIf="type.cost" class="text-muted"> cena: {{type.cost |  number : '1.2-2'}}</span>
+                <button *ngIf="!type.cost" (click)="addPrice(type)" mat-raised-button matTooltip="dodaj nowy produkt" color="primary"
+                type="button">
+                <i class="fa fa-plus mr-1"> </i> Dodaj
+            </button>
+                <button *ngIf="type.cost" (click)="updatePrice(type)" mat-raised-button matTooltip="dodaj nowy produkt" color="primary"
+                type="button">
+                <i class="fa fa-refresh mr-1"> </i> Uaktualnij
+            </button>
+              </a>
+            </div>
+          </mat-list>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title header-title"> Ceny specjalne klientów</h5>
+          
+          <mat-list>
+            <div *ngIf="customerwitchPrice" class="list-group">
+
+              <a *ngFor="let type of  customerwitchPrice"
+              
+              class="list-group-item list-group-item-action d-flex justify-content-between">
+              {{type.akronim}} - {{type.name}}
+              <span *ngIf="type.cost" class="text-muted"> cena: {{type.cost}}</span>
+              </a>
+            </div>
+          </mat-list>
+          <!--customerwitchPrice-->
+        
+      </div>
+    </div>
+  </div>
+</div>
