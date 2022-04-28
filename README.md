@@ -1,1 +1,1 @@
-Angular NgRX and .Net Core
+Angular NgRX and  .Net Core
